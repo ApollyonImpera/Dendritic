@@ -10,7 +10,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-    networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -38,17 +38,7 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
- # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "dsb_qwertz";
-  };
-
-	  # Configure console keymap
+  # Configure console keymap
   console.keyMap = "de";
 
   # Enable CUPS to print documents.
@@ -77,27 +67,31 @@
   users.users."valeria" = {
     isNormalUser = true;
     description = "Valeria";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "seat" ];
     packages = with pkgs; [
 	# kdePackages.kate
-	# thunderbird
-	# gimp
-	# libreoffice
-	# discord
+    thunderbird
+    gimp
+    libreoffice
+    discord
 	# pandoc
-	# joplin
-	# wine
-	# bottles
-	# obsidian
+    # joplin
+    wine
+    bottles
+    obsidian
     ];
   };
 
   environment.systemPackages = with pkgs; [
 	firefox
 	vim
+	kitty
+	xdg-desktop-portal-gtk
+	polkit
+  ];
 
   # Allow unfree packages
-  # nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
   # Allow libraries
   # programs.nix-ld.enable = true;
@@ -118,7 +112,37 @@
 
   # List services that you want to enable:
 
-    ];
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;  # Für Wayland-Screensharing/Clipboard
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  # Für Dateidialoge etc.
+  };
+
+  programs.niri.enable = true;
+
+  systemd.user.services.niri = {
+  description = "Niri Wayland compositor";
+  wantedBy = [ "graphical-session.target" ];
+  serviceConfig = {
+    ExecStart = "${pkgs.lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri}";
+    Restart = "on-failure";
+    Environment = [
+      "XDG_RUNTIME_DIR=%t"
+      "DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus"
+  ];
+  };
+  };
+
+  systemd.user.targets.graphical-session = {
+    description = "Graphical session";
+    requires = [ "niri.service" ];
+    wantedBy = [ "default.target" ];
+  };
+
+  services.seatd.enable = true;
+  hardware.graphics.enable = true;
+
   };
 
   # Enable the OpenSSH daemon.
