@@ -24,6 +24,8 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
+  system.stateVersion = "26.05";
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
