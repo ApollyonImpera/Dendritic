@@ -60,7 +60,6 @@
 	# Screenshot
 	"Mod+Print".spawn-sh = "grim - | satty --filename -";
 	"Print".spawn-sh = "wayfreeze --hide-cursor & PID=$!; sleep 0.1; IMG=$(grim -g \"$(slurp)\" - | base64); kill $PID; echo \"$IMG\" | base64 -d | satty --filename -";
-	"XF86PowerOff".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call sessionMenu toggle";
         };
       };
     };

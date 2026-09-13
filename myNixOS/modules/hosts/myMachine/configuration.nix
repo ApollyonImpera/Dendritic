@@ -171,7 +171,6 @@
 	};
 	};
  	};
-	logind.settings.Login.HandlePowerKey = "ignore";
   };
 
   xdg.portal = {
