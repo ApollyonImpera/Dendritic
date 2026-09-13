@@ -61,6 +61,9 @@
 	"Mod+Print".spawn-sh = "grim - | satty --filename -";
 	"Print".spawn-sh = "wayfreeze --hide-cursor & PID=$!; sleep 0.1; IMG=$(grim -g \"$(slurp)\" - | base64); kill $PID; echo \"$IMG\" | base64 -d | satty --filename -";
         };
+
+	outputs."eDP-1".mode = "2880x1800@60.001";
+
       };
     };
   };

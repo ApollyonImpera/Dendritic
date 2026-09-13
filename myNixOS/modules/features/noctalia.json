@@ -606,7 +606,7 @@
   "audio": {
     "volumeStep": 5,
     "volumeOverdrive": false,
-    "spectrumFrameRate": 30,
+    "spectrumFrameRate": 0,
     "visualizerType": "linear",
     "spectrumMirrored": true,
     "mprisBlacklist": [],
