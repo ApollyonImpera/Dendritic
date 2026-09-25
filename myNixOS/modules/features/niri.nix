@@ -19,6 +19,7 @@
 	input.keyboard.xkb.layout = "de";
 	input.keyboard.xkb.variant = "dsb_qwertz";
         layout.gaps = 5;
+	input.disable-power-key-handling = true;		# disable powerkey handling
 
 	binds = {
 	"Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
@@ -60,6 +61,8 @@
 	# Screenshot
 	"Mod+Print".spawn-sh = "grim - | satty --filename -";
 	"Print".spawn-sh = "wayfreeze --hide-cursor & PID=$!; sleep 0.1; IMG=$(grim -g \"$(slurp)\" - | base64); kill $PID; echo \"$IMG\" | base64 -d | satty --filename -";
+	# PowerButton
+	"XF86PowerOff".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call sessionMenu toggle";
         };
 
 	outputs."eDP-1".mode = "2880x1800@60.001";

@@ -171,6 +171,13 @@
 	};
 	};
  	};
+
+	logind.settings.Login = {
+	  HandleLidSwitch = "hibernate";
+	  HandleLidSwitchExternalPower = "hibernate";
+	  HandleLidSwitchDocked = "hibernate";
+	  HandlePowerKey = "ignore";
+	};
   };
 
   xdg.portal = {
