@@ -20,6 +20,12 @@
 	input.keyboard.xkb.variant = "dsb_qwertz";
         layout.gaps = 5;
 	input.disable-power-key-handling = true;		# disable powerkey handling
+	input.touchpad = {
+	  tap = _: {};
+	  tap-button-map = "left-middle-right";
+	  dwt = _: {};
+	  natural-scroll = _: {};
+	};
 
 	binds = {
 	"Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
