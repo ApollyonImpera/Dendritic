@@ -96,6 +96,7 @@
 	kitty				# terminal
 	xdg-desktop-portal-gtk		# I forgot what it does
 	thunar				# file manager
+	thunar-volman			# shows mounted USB and so on
 	upower				# battery tracking
 	mousepad			# gui editor
 	brightnessctl			# brightness control
@@ -183,7 +184,10 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+	pkgs.xdg-desktop-portal-gtk
+	pkgs.xdg-desktop-portal-gnome
+	];
   };
   
   hardware = {
