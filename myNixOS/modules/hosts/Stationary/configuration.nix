@@ -36,14 +36,14 @@
 	LC_TELEPHONE = "de_DE.UTF-8";
 	LC_TIME = "de_DE.UTF-8";
   };
-  console.keyMap = "de";
+
   environment.sessionVariables = {
-    XKB_DEFAULT_VARIANT = "dsb_qwertz";
+    XKB_DEFAULT_LAYOUT = "de";
   };
 
-  users.users."Apollyon" = {
+  users.users."apollyon" = {
     isNormalUser = true;
-    description = "Apollyon";
+    description = "apollyon";
     extraGroups = [ "networkmanager" "wheel" "gamemode" ];
     packages = with pkgs; [
 	firefox
