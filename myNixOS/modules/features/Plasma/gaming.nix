@@ -20,6 +20,9 @@
       powerManagement.enable = true;
     };
 
-    environment.systemPackages = [ pkgs.openrgb ];
+   services.hardware.openrgb = {
+      enable = true;
+      motherboard = "amd";
+    };
   };
 }
