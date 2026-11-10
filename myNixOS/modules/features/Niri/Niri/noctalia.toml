@@ -1,0 +1,251 @@
+# Noctalia v5 configuration — migrated from the old v4 settings.json
+# Docs: https://docs.noctalia.dev/noctalia/
+# Validate with: noctalia config validate <this-file>
+
+# ---------- Shell ----------
+
+[shell]
+avatar_path = "/home/valeria/Desktop/Transfer/SPQR-III.jpg"
+font_family = "Noto Sans"
+lang = ""
+telemetry_enabled = true
+password_style = "default"          # v4 passwordChars = true
+corner_radius_scale = 1.0
+time_format = "{:%H:%M:%S}"         # v4 general.clockFormat "HH:mm:ss dd.MM.yyyy "
+date_format = "{:%d.%m.%Y}"
+clipboard_enabled = true
+clipboard_auto_paste = "off"        # v4 appLauncher.autoPasteClipboard = false
+app_icon_colorize = false            # v4 dock.colorizeIcons = true
+app_icon_color = "on_surface"
+show_location = true
+offline_mode = false
+
+[shell.animation]
+enabled = true                      # v4 animationDisabled = false
+speed = 1.0                         # v4 animationSpeed = 1
+
+[shell.shadow]
+direction = "down_right"            # v4 shadowDirection = "bottom_right"
+alpha = 0.55
+
+[shell.screen_corners]
+enabled = false                     # v4 showScreenCorners = false
+
+[shell.panel]
+transparency_mode = "soft"          # v4 enableBlurBehind = true
+borders = true
+shadow = false                      # v4 enableShadows = false
+launcher_placement = "attached"
+clipboard_placement = "attached"
+control_center_placement = "attached"
+wallpaper_placement = "attached"
+session_placement = "attached"
+launcher_position = "center"        # v4 appLauncher.position = "center"
+
+[shell.launcher]
+layout = "full"
+default_view = "recent"
+categories = true                   # v4 appLauncher.showCategories
+app_grid = true                     # v4 appLauncher.viewMode = "grid"
+sort_by_usage = true                # v4 appLauncher.sortByMostUsed
+track_usage = true
+pinned = []                         # v4 appLauncher.pinnedApps
+
+[shell.launcher.providers.windows]
+global = true                       # v4 enableWindowsSearch
+
+[shell.launcher.providers.session]
+global = true                       # v4 enableSessionSearch
+
+[shell.mpris]
+blacklist = []                      # v4 audio.mprisBlacklist
+
+# ---------- Theme ----------
+
+[theme]
+mode = "dark"                       # v4 colorSchemes.darkMode = true
+shell_mode = "follow"
+source = "builtin"                  # v4 useWallpaperColors = false
+builtin = "Noctalia"                # v4 predefinedScheme = "Noctalia (default)"
+wallpaper_scheme = "m3-tonal-spot"  # v4 generationMethod = "tonal-spot"
+pure_black_dark = false
+sync_color_scheme = true            # v4 syncGsettings = true
+
+# ---------- Location / Weather / Night Light ----------
+
+[location]
+auto_locate = false                 # v4 location.autoLocate
+address = "Magdeburg"               # v4 location.name
+custom_schedule = true              # v5 needs this for manual sunrise/sunset
+sunrise = "06:30"                   # v4 nightLight.manualSunrise
+sunset = "18:30"                    # v4 nightLight.manualSunset
+
+[weather]
+enabled = true                      # v4 location.weatherEnabled
+refresh_minutes = 30
+unit = "metric"                     # v4 useFahrenheit = false\neffects = true                      # v4 weatherShowEffects
+
+[nightlight]
+enabled = true                      # v4 nightLight.enabled
+force = false                       # v4 nightLight.forced
+temperature_day = 6001              # v4 nightLight.dayTemp = "6001"
+temperature_night = 4000            # v4 nightLight.nightTemp = "4000"
+
+# ---------- Wallpaper ----------
+
+[wallpaper]
+enabled = true                      # v4 wallpaper.enabled
+fill_mode = "crop"                  # v4 wallpaper.fillMode
+fill_color = "#000000"              # v4 wallpaper.fillColor
+transition = ["fade", "disc", "stripes", "wipe", "pixel", "honeycomb"]
+                                    # v4 wallpaper.transitionType ("pixelate" renamed to "pixel" in v5)
+transition_duration = 1500          # ms, v4 wallpaper.transitionDuration
+edge_smoothness = 0.05              # v4 transitionEdgeSmoothness
+transition_on_startup = true        # v4 skipStartupTransition = false\ndirectory = "/home/valeria/Pictures/Wallpapers"   # v4 wallpaper.directory
+per_monitor_directories = false
+
+[wallpaper.automation]
+enabled = false                     # v4 wallpaper.automationEnabled
+interval_seconds = 300              # v4 randomIntervalSec\norder = "random"                    # v4 wallpaperChangeMode\nrecursive = false
+pause_on_fullscreen = false
+
+# v4 wallpaper.overviewEnabled = false  -> backdrop stays off:
+[backdrop]
+enabled = false
+blur_intensity = 0.4                # v4 overviewBlur
+tint_intensity = 0.6                # v4 overviewTint
+
+# ---------- Bar ----------
+
+[bar]
+order = ["default"]
+
+[bar.default]
+position = "bottom"                 # v4 bar.position
+enabled = true
+auto_hide = false                   # v4 displayMode = "always_visible"
+show_on_workspace_switch = true     # v4 showOnWorkspaceSwitch
+reserve_space = true                # v4 enableExclusionZoneInset
+layer = "top"
+background_opacity = 0.93           # v4 backgroundOpacity
+compositor_blur = true
+border = "#001F3F"          # v4 showOutline
+border_width = 1.0
+shadow = false
+radius = 12                         # v4 frameRadius
+margin_edge = 4                     # v4 marginVertical/marginHorizontal (floating bar)
+margin_ends = 4
+padding = 2                         # v4 contentPadding\nwidget_spacing = 6                  # v4 widgetSpacing\nscale = 1.0
+font_scale = 1.0                    # v4 fontScale\ncapsule = true                      # v4 showCapsule\ncapsule_fill = "error"              # v4 capsuleColorKey = "error"
+capsule_opacity = 1.0               # v4 capsuleOpacity
+start = ["launcher", "clock", "active_window", "media"]
+center = ["workspaces"]
+end = ["tray", "notifications", "battery", "volume", "brightness", "control-center"]
+# v4 right-side plugin widget piero-93/battery-power-management has no v5 equivalent;
+# install the plugin via Settings -> Plugins, then add it to `end` and define:
+# [widget.battery-power-management]
+# type = "piero-93/battery-power-management:widget"
+
+# ---------- Bar widgets ----------
+# v4 bar.widgets.{left,center,right} mapped onto start/center/end above:
+#   Launcher -> launcher, Clock -> clock, ActiveWindow -> active_window,
+#   MediaMini -> media | Workspace -> workspaces
+#   Tray -> tray, NotificationHistory -> notifications, Battery -> battery,
+#   Volume -> volume, Brightness -> brightness, ControlCenter -> control-center
+
+[widget.clock]
+format = "{:%H:%M %a, %b %d}"        # v4 formatHorizontal "HH:mm ddd, MMM dd"
+vertical_format = "{:%H\n%M - %d %m}"  # v4 formatVertical "HH mm - dd MM"
+tooltip_format = "{:%H:%M %a, %b %d}"  # v4 tooltipFormat
+
+[widget.workspaces]
+style = "regular"
+show_labels = true
+label_source = "id"                 # v4 labelMode = "index"
+max_label_chars = 2                 # v4 characterCount = 2\nlabels_only_when_occupied = true    # v4 showLabelsOnlyWhenOccupied\nhide_when_empty = false             # v4 hideUnoccupied = false\nfocused_color = "primary"           # v4 focusedColor\noccupied_color = "secondary"        # v4 occupiedColor\nempty_color = "secondary"           # v4 emptyColor\npill_scale = 0.6                    # v4 pillSize\nfont_weight = 700                   # v4 fontWeight = "bold"
+
+[widget.media]
+artist_first = true                 # v4 showArtistFirst\nmax_length = 145                    # v4 maxWidth\nhide_when_idle = false              # v4 hideWhenIdle\nhide_when_no_media = false          # v4 hideMode = "hidden" (always show instead)
+
+[widget.volume]
+device = "output"
+show_glyph = true
+show_label = true
+
+[widget.volume.actions]
+middle = "exec pwvucontrol || pavucontrol"   # v4 middleClickCommand
+
+[widget.brightness]
+show_glyph = true
+show_label = true
+show_when_unavailable = false       # v4 hideIfNotDetected = false
+
+# ---------- Dock ----------
+# v4: dock enabled, only on monitor eDP-1 -> global off + per-monitor override.
+
+[dock]
+enabled = false
+position = "bottom"                 # v4 dock.position
+active_monitor_only = true          # v4 onlySameOutput\nbackground_opacity = 1.0            # v4 backgroundOpacity\nmargin_edge = 8                     # v4 dockType = "floating"
+auto_hide = true                    # v4 displayMode = "auto_hide"
+icon_size = 48
+item_spacing = 6
+inactive_opacity = 0.6              # v4 deadOpacity\nshow_dots = false                   # v4 showDockIndicator = false\nlauncher_position = "none"          # v4 showLauncherIcon = false\npinned = []                         # v4 pinnedApps
+
+[dock.monitor.laptop]
+match = "eDP-1"                     # v4 monitors = ["eDP-1"]
+enabled = false
+
+# ---------- Notifications ----------
+
+[notification]
+enable_daemon = true                # v4 notifications.enabled
+position = "top_right"              # v4 location\nlayer = "overlay"                   # v4 overlayLayer\nbackground_opacity = 1.0            # v4 backgroundOpacity\nmonitors = ["eDP-1"]                # v4 monitors\nkeep_dismissed_in_history = true    # v4 clearDismissed = true
+
+# ---------- OSD ----------
+
+[osd]
+enabled = true                      # v4 osd.enabled
+position = "top_right"              # v4 location\norientation = "horizontal"
+hide_delay_ms = 2000                # v4 autoHideMs\nscale = 1.0
+
+# ---------- Audio / Brightness ----------
+# v4 audio.volumeStep = 5 and brightness.brightnessStep = 5 are the v5 default (5%),
+# so no keys needed.
+
+[audio]
+enable_overdrive = false            # v4 volumeOverdrive\nenable_sounds = false               # v4 notifications.sounds.enabled = false\nsound_volume = 0.5                  # v4 notifications.sounds.volume
+
+[brightness]
+enable_ddcutil = false              # v4 enableDdcSupport\nminimum_brightness = 0.0
+
+# ---------- Idle ----------
+# v4 idle: screenOff 240s, lock 300s, suspend 600s, fade 5s
+
+[idle]
+pre_action_fade_seconds = 5.0       # v4 fadeDuration
+
+[idle.behavior.screen-off]
+timeout = 240
+action = "screen_off"
+enabled = true
+
+[idle.behavior.lock]
+timeout = 300
+action = "lock"
+enabled = true
+
+[idle.behavior.suspend]
+timeout = 600
+action = "lock_and_suspend"
+enabled = true
+
+# ---------- Lock screen ----------
+
+[lockscreen]
+lock_before_suspend = true          # v4 lockOnSuspend
+
+# ---------- Plugins ----------
+
+[plugins]
+auto_update = "none"                # v4 plugins.autoUpdate = false
