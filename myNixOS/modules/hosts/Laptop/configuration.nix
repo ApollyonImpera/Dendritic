@@ -71,6 +71,7 @@
     packages = with pkgs; [
 	kdePackages.kate				# gui code editor
 	thunderbird			# mail
+	protonmail-desktop		# mail 2
 	gimp				# picture editor
 	libreoffice			# productivity
 	discord				# communication
