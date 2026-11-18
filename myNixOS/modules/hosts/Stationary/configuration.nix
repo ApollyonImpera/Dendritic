@@ -75,9 +75,9 @@
 	fstrim.enable = true;          # periodic TRIM for both SSDs
 	printing.enable = true;
 	fwupd.enable = true;
-	scx = {
+	scx-loader = {
 	  enable = true;
-	  scheduler = "scx_lavd";
+	  config.default_sched = "scx_lavd";
 	};
 
 	pipewire = {
