@@ -30,7 +30,7 @@
 	binds = {
 	"Mod+Return".spawn-sh = lib.getExe pkgs.kitty;
 	"Mod+Q".close-window = _:{};
-	"Mod+S".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
+	"Mod+S".spawn-sh = "${lib.getExe self'.packages.myNoctalia} msg panel-toggle launcher";
 
 	"XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
 	"XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
@@ -68,7 +68,7 @@
 	"Mod+Print".spawn-sh = "grim - | satty --filename -";
 	"Print".spawn-sh = "wayfreeze --hide-cursor & PID=$!; sleep 0.1; IMG=$(grim -g \"$(slurp)\" - | base64); kill $PID; echo \"$IMG\" | base64 -d | satty --filename -";
 	# PowerButton
-	"XF86PowerOff".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call sessionMenu toggle";
+	"XF86PowerOff".spawn-sh = "${lib.getExe self'.packages.myNoctalia} msg panel-toggle session";
         };
 
 	outputs."eDP-1".mode = "2880x1800@60.001";
