@@ -200,7 +200,47 @@
 	enableRedistributableFirmware = true;		# newest hardware support
   };  
 
-  powerManagement.powertop.enable = true;
+  powerManagement.powertop.enable = true;		# this and following = energy managment
+
+  systemd.services.powertop-resume = {			# Autotune after resuming
+    description = "powertop --auto-tune after resume";
+    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.powertop}/bin/powertop --auto-tune";
+    };
+  };
+
+  systemd.services.powertop-retune = {			# reapply tuning every 10min
+    description = "powertop --auto-tune (periodisch)";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.powertop}/bin/powertop --auto-tune";
+    };
+  };
+  systemd.timers.powertop-retune = {
+    description = "Re-apply powertop tunables every 10 min";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "5min";
+      OnUnitActiveSec = "10min";
+    };
+  };
+
+  services.udev.extraRules = ''				# reapplication on new devices
+    ACTION=="add", SUBSYSTEM=="usb|pci|scsi|block", ATTR{power/control}="auto"
+  '';
+
+  systemd.services.power-profile-powersaver = {		# pin powerdaemon profile
+    description = "Pin power profile to power-saver";
+    after = [ "power-profiles-daemon.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver";
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
